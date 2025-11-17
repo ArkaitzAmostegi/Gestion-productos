@@ -7,12 +7,11 @@
         @csrf
         @method('PUT')
         
-        <label for="name">Nombre:</label><br>
-        <input type="text" id="name" name="name" value="{{ $category->name }}" required><br><br>
+        <label for="nombre">Nombre:</label><br>
+        <input type="text" id="nombre" name="nombre" value="{{ $category->nombre }}" required><br><br>
 
-        <label for="description">Descripción:</label><br>
-        <textarea id="description" name="description">{{ $category->description }}</textarea><br><br>
-
+        <label for="descripcion">Descripción:</label><br>
+        <textarea id="descripcion" name="descripcion">{{ $category->descripcion }}</textarea><br><br>
         <button type="submit">Actualizar Categoría</button>
     </form>
 

@@ -5,12 +5,12 @@ use App\Http\Controllers\CategoriasController;
 use App\Http\Controllers\ProductosController;
 
 //Crea la ruta para dirigir el flujo al layout
-Route::get('/', function () {return view('layout');});
+Route::get('/', fn() => view('layout'));
 
 
-// Crea las rutas categories.index.
-Route::get('/categories', [CategoriasController::class, 'index'])->name('categories.index');
-Route::get('/categoriesCreate', [CategoriasController::class, 'create'])->name('categories.create');
+// CRUD de categorías
+Route::resource('categories', CategoriasController::class);
 
-// Crea las rutas products.index.
+
+// Crea la ruta products, index.
 Route::get('/products', [ProductosController::class, 'index'])->name('products.index');

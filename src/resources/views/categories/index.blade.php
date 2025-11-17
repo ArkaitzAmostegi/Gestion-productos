@@ -18,8 +18,8 @@
             @foreach ($categories as $category)
             <tr>
                 <td>{{ $category->id }}</td>
-                <td>{{ $category->name }}</td>
-                <td>{{ $category->description }}</td>
+                <td>{{ $category->nombre }}</td>
+                <td>{{ $category->descripcion }}</td>
                 <td>
                     <a href="{{ route('categories.edit', $category) }}">Editar</a>
                     

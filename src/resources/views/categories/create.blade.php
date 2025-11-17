@@ -6,11 +6,11 @@
     <form action="{{ route('categories.store') }}" method="POST">
         @csrf
         
-        <label for="name">Nombre:</label><br>
-        <input type="text" id="name" name="name" required><br><br>
+        <label for="nombre">Nombre:</label><br>
+        <input type="text" id="nombre" name="nombre" required><br><br>
 
-        <label for="description">Descripción:</label><br>
-        <textarea id="description" name="description"></textarea><br><br>
+        <label for="descripcion">Descripción:</label><br>
+        <textarea id="descripcion" name="descripcion"></textarea><br><br>
 
         <button type="submit">Guardar Categoría</button>
     </form>

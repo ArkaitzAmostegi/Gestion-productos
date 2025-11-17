@@ -12,13 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('categorias', function (Blueprint $table) {
-            $table->id();
-            $table->integer('idCategoria');
+            $table->id(); // ID autoincremental
             $table->string('nombre');
-            $table->decimal('precio', 8, 2);
+            $table->text('descripcion')->nullable();
             $table->timestamps();
         });
     }
+
 
     /**
      * Reverse the migrations.
