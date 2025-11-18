@@ -12,5 +12,5 @@ Route::get('/', fn() => view('layout'));
 Route::resource('categories', CategoriasController::class);
 
 
-// Crea la ruta products, index.
-Route::get('/products', [ProductosController::class, 'index'])->name('products.index');
+// CRUD de productos
+Route::resource('products', ProductosController::class);

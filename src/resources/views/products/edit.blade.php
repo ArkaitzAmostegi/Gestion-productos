@@ -7,21 +7,19 @@
         @csrf
         @method('PUT')
 
-        <label for="category_id">Categoría:</label><br>
-        <select name="category_id" id="category_id" required>
+        <label for="idCategoria">Categoría:</label><br>
+        <select name="idCategoria" id="idCategoria" required>
+            <option value="">-- Selecciona una categoría --</option>
             @foreach($categories as $category)
-                <option value="{{ $category->id }}" 
-                    {{ $product->category_id == $category->id ? 'selected' : '' }}>
-                    {{ $category->name }}
-                </option>
+                <option value="{{ $category->id }}">{{ $category->nombre }}</option>
             @endforeach
         </select><br><br>
 
-        <label for="name">Nombre del Producto:</label><br>
-        <input type="text" name="name" value="{{ $product->name }}" required><br><br>
+        <label for="nombre">Nombre del Producto:</label><br>
+        <input type="text" name="nombre" value="{{ $product->nombre }}" required><br><br>
 
-        <label for="price">Precio:</label><br>
-        <input type="number" step="0.01" name="price" value="{{ $product->price }}" required><br><br>
+        <label for="precio">Precio:</label><br>
+        <input type="number" step="0.01" name="precio" value="{{ $product->precio }}" required><br><br>
 
         <label for="stock">Stock:</label><br>
         <input type="number" name="stock" value="{{ $product->stock }}" required><br><br>

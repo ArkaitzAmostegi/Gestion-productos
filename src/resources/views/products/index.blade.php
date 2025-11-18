@@ -20,9 +20,9 @@
             @foreach ($products as $product)
             <tr>
                 <td>{{ $product->id }}</td>
-                <td>{{ $product->category->name }}</td>
-                <td>{{ $product->name }}</td>
-                <td>{{ $product->price }}</td>
+                <td>{{ $product->categoria->nombre }}</td>
+                <td>{{ $product->nombre }}</td>
+                <td>{{ $product->precio }}</td>
                 <td>{{ $product->stock }}</td>
                 <td>
                     <a href="{{ route('products.edit', $product) }}">Editar</a>

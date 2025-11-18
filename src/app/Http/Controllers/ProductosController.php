@@ -3,65 +3,77 @@
 namespace App\Http\Controllers;
 
 use App\Models\productos;
+use App\Models\categorias;
 use Illuminate\Http\Request;
 
 class ProductosController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    // LISTADO
     public function index()
     {
-        
-        //Devuelve la vista
-        return view('products.index');
+        // Traer productos con su categoría asociada
+        $products = productos::with('categoria')->get();
+
+        return view('products.index', compact('products'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    // FORMULARIO DE CREACIÓN
     public function create()
     {
-        //
+        // Necesitamos las categorías para el select
+        $categories = categorias::all();
+
+        return view('products.create', compact('categories'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    // GUARDAR EN BD
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nombre' => 'required',
+            'precio' => 'required|numeric',
+            'stock' => 'required|integer|min:0',
+            'idCategoria' => 'required|exists:categorias,id'
+        ]);
+
+        productos::create($request->all());
+
+        return redirect()
+            ->route('products.index')
+            ->with('success', 'Producto creado correctamente.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(productos $productos)
+    // FORMULARIO DE EDICIÓN
+    public function edit(productos $product)
     {
-        //
+        $categories = categorias::all();
+        return view('products.edit', compact('product', 'categories'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(productos $productos)
+    // ACTUALIZAR EN BD
+    public function update(Request $request, productos $product)
     {
-        //
+        $request->validate([
+            'nombre' => 'required',
+            'precio' => 'required|numeric',
+            'stock' => 'required|integer|min:0',
+            'idCategoria' => 'required|exists:categorias,id'
+        ]);
+
+        $product->update($request->all());
+
+        return redirect()
+            ->route('products.index')
+            ->with('success', 'Producto actualizado.');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, productos $productos)
+    // BORRAR
+    public function destroy(productos $product)
     {
-        //
-    }
+        $product->delete();
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(productos $productos)
-    {
-        //
+        return redirect()
+            ->route('products.index')
+            ->with('success', 'Producto eliminado.');
     }
 }
