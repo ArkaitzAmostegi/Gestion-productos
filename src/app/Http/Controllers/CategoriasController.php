@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\categorias;
+use App\Models\Categoria;
 use Illuminate\Http\Request;
 
 class CategoriasController extends Controller
@@ -10,7 +10,7 @@ class CategoriasController extends Controller
     // LISTAR
     public function index()
     {
-        $categories = categorias::all();
+        $categories = Categoria::all();
         return view('categories.index', compact('categories'));
     }
 
@@ -28,20 +28,20 @@ class CategoriasController extends Controller
             'descripcion' => 'nullable'
         ]);
 
-        categorias::create($request->all());
+        Categoria::create($request->all());
 
         return redirect()->route('categories.index')
                         ->with('success', 'Categoría creada correctamente.');
     }
 
     // FORMULARIO DE EDICIÓN
-    public function edit(categorias $category)
+    public function edit(Categoria $category)
     {
         return view('categories.edit', compact('category'));
     }
 
     // ACTUALIZAR
-    public function update(Request $request, categorias $category)
+    public function update(Request $request, Categoria $category)
     {
         $request->validate([
             'nombre' => 'required',
@@ -55,7 +55,7 @@ class CategoriasController extends Controller
     }
 
     // BORRAR
-    public function destroy(categorias $category)
+    public function destroy(Categoria $category)
     {
         $category->delete();
 

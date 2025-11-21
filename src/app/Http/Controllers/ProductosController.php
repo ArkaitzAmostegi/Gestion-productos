@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\productos;
-use App\Models\categorias;
+use App\Models\Producto;
+use App\Models\Categoria;
 use Illuminate\Http\Request;
 
 class ProductosController extends Controller
@@ -11,8 +11,7 @@ class ProductosController extends Controller
     // LISTADO
     public function index()
     {
-        // Traer productos con su categoría asociada
-        $products = productos::with('categoria')->get();
+        $products = Producto::with('categoria')->get();
 
         return view('products.index', compact('products'));
     }
@@ -20,8 +19,7 @@ class ProductosController extends Controller
     // FORMULARIO DE CREACIÓN
     public function create()
     {
-        // Necesitamos las categorías para el select
-        $categories = categorias::all();
+        $categories = Categoria::all();
 
         return view('products.create', compact('categories'));
     }
@@ -36,7 +34,7 @@ class ProductosController extends Controller
             'idCategoria' => 'required|exists:categorias,id'
         ]);
 
-        productos::create($request->all());
+        Producto::create($request->all());
 
         return redirect()
             ->route('products.index')
@@ -44,14 +42,16 @@ class ProductosController extends Controller
     }
 
     // FORMULARIO DE EDICIÓN
-    public function edit(productos $product)
+    public function edit(Producto $product)
     {
-        $categories = categorias::all();
+        
+        $categories = Categoria::all();
+
         return view('products.edit', compact('product', 'categories'));
     }
 
     // ACTUALIZAR EN BD
-    public function update(Request $request, productos $product)
+    public function update(Request $request, Producto $product)
     {
         $request->validate([
             'nombre' => 'required',
@@ -68,7 +68,7 @@ class ProductosController extends Controller
     }
 
     // BORRAR
-    public function destroy(productos $product)
+    public function destroy(Producto $product)
     {
         $product->delete();
 

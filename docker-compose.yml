@@ -31,7 +31,7 @@ services:
     environment:
       # Variables de entorno de MySQL. ¡Cambia las contraseñas!
       MYSQL_ROOT_PASSWORD: pasword
-      MYSQL_DATABASE: db
+      MYSQL_DATABASE: almacen
       MYSQL_USER: user
       MYSQL_PASSWORD: password
     # Mapea un volumen para persistir los datos de la base de datos

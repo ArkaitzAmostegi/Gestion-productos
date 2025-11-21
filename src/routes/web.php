@@ -11,6 +11,7 @@ Route::get('/', fn() => view('layout'));
 // CRUD de categorías
 Route::resource('categories', CategoriasController::class);
 
-
 // CRUD de productos
 Route::resource('products', ProductosController::class);
+
+//Mostrar vista inventario

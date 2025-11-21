@@ -12,6 +12,7 @@
             <ul>
                 <li><a href="{{ route('categories.index') }}">Gestionar Categorías</a></li>
                 <li><a href="{{ route('products.index') }}">Gestionar Productos</a></li>
+                <li><a href="{{ route('products.index') }}">Mostrar inventario</a></li>
             </ul>
         </nav>
         <hr>
