@@ -11,6 +11,7 @@
                 <th>ID</th>
                 <th>Categoría</th>
                 <th>Acciones Categorías</th>
+                <th>Descripción Categorías</th>
                 <th>Nombre</th>
                 <th>Precio</th>
                 <th>Stock</th>
