@@ -8,7 +8,7 @@
         SECCIÓN CATEGORÍAS
     =================================== --}}
     <h3>Categorías</h3>
-    <a href="{{ route('categories.create') }}">➕ Crear Categoría</a>
+    <a href="{{ route('categories.create') }}">     Crear Categoría</a>
     <br><br>
 
     <table border="1" cellpadding="10">
@@ -61,7 +61,7 @@
         SECCIÓN PRODUCTOS
     =================================== --}}
     <h3>Productos</h3>
-    <a href="{{ route('products.create') }}">➕ Crear Producto</a>
+    <a href="{{ route('products.create') }}">   Crear Producto</a>
     <br><br>
 
     <table border="1" cellpadding="10">

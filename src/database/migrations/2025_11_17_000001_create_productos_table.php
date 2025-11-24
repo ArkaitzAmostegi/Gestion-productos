@@ -18,10 +18,9 @@ return new class extends Migration
             $table->integer('stock')->default(0);
             
             // Relación con categorías
-            $table->unsignedBigInteger('idCategoria');
-            $table->foreign('idCategoria')
-                ->references('id')
-                ->on('categorias'); 
+           $table->foreignId('idCategoria')
+                ->constrained('categorias')
+                ->restrictOnDelete(); 
 
             $table->timestamps();
         });
