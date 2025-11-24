@@ -16,4 +16,4 @@ Route::resource('categories', CategoriasController::class);
 Route::resource('products', ProductosController::class);
 
 //Mostrar vista inventario
-Route::resource('almacen', AlmacenController::class);
+Route::get('/almacen', [AlmacenController::class, 'index'])->name('almacen.index');

@@ -2,17 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Producto;
 use App\Models\Categoria;
-use Illuminate\Http\Request;
+use App\Models\Producto;
 
 class AlmacenController extends Controller
-
 {
-    public function index(){
-        // Datos que a mostrar
-        $categories = Categoria::all();
-        $products = Producto::all();
+    public function index()
+    {
+        $categories = Categoria::withCount('productos')->get();
+        $products   = Producto::with('categoria')->get();
 
         return view('almacen.index', compact('categories', 'products'));
     }

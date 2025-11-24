@@ -54,12 +54,21 @@ class CategoriasController extends Controller
                         ->with('success', 'Categoría actualizada.');
     }
 
-    // BORRAR
+    // BORRAR, con opción a que no se borre si hay productos en una categoría
     public function destroy(Categoria $category)
     {
-        $category->delete();
+        try {
+            $category->delete();
 
-        return redirect()->route('categories.index')
-                        ->with('success', 'Categoría eliminada.');
+            return redirect()
+                ->route('categories.index')
+                ->with('success', 'Categoría eliminada.');
+                
+        } catch (\Illuminate\Database\QueryException $e) {
+            return redirect()
+                ->route('categories.index')
+                ->with('error', 'No puedes borrar esta categoría porque tiene productos asociados.');
+        }
     }
+
 }
