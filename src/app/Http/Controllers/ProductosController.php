@@ -11,9 +11,10 @@ class ProductosController extends Controller
     // LISTADO
     public function index()
     {
+        $usuario = \App\Models\Usuario::first(); //Pasa el usuario a esta vista
         $products = Producto::with('categoria')->get();
 
-        return view('products.index', compact('products'));
+        return view('products.index', compact('products', 'usuario'));
     }
 
     // FORMULARIO DE CREACIÓN

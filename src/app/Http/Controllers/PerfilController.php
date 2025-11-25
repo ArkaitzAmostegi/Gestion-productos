@@ -12,7 +12,9 @@ class PerfilController extends Controller
      */
     public function index()
     {
-        //
+        $usuario = \App\Models\Usuario::first(); //Pasa el usuario a esta vista
+        $perfil = Perfil::where('usuario_id', 1)->first();
+        return view('perfil.index', compact('perfil', 'usuario'));
     }
 
     /**

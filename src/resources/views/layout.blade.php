@@ -17,6 +17,7 @@
         @endif
 
         <nav>
+            <h3><a href="{{ route('perfil.index') }}">{{ $usuario->nombre ?? 'Usuario' }}</a></h3>
             <ul>
                 <li><a href="{{ route('categories.index') }}">Gestionar Categorías</a></li>
                 <li><a href="{{ route('products.index') }}">Gestionar Productos</a></li>

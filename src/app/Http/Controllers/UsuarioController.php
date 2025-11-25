@@ -12,7 +12,11 @@ class UsuarioController extends Controller
      */
     public function index()
     {
-        //
+         // Sacar el usuario de la tabla
+        $usuario = \App\Models\Usuario::first(); // o find(1)
+
+        // Pasarlo a la vista
+        return view('perfil.index', compact('usuario'));
     }
 
     /**
@@ -28,7 +32,7 @@ class UsuarioController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
     }
 
     /**

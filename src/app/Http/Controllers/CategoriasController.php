@@ -10,8 +10,10 @@ class CategoriasController extends Controller
     // LISTAR
     public function index()
     {
+        $usuario = \App\Models\Usuario::first(); //Pasa el usuario a este vista
         $categories = Categoria::all();
-        return view('categories.index', compact('categories'));
+
+        return view('categories.index', compact('categories', 'usuario'));
     }
 
     // FORMULARIO DE CREACIÓN

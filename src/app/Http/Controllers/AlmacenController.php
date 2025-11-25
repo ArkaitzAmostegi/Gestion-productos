@@ -9,9 +9,10 @@ class AlmacenController extends Controller
 {
     public function index()
     {
+        $usuario = \App\Models\Usuario::first(); //Pasa el usuario a esta vista
         $categories = Categoria::withCount('productos')->get();
         $products   = Producto::with('categoria')->get();
 
-        return view('almacen.index', compact('categories', 'products'));
+        return view('almacen.index', compact('categories', 'products', 'usuario'));
     }
 }
