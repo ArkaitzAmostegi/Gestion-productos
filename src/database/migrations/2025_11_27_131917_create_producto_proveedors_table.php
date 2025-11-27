@@ -11,21 +11,20 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('producto_proveedors', function (Blueprint $table) {
+        Schema::create('producto_proveedor', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
 
-             // Relación con cproveedor 
-           $table->foreignId('idCategoria')
-                ->constrained('categorias')
-                ->restrictOnDelete(); 
-            
-                 // Relación con producto
-           $table->foreignId('idCategoria')
-                ->constrained('categorias')
-                ->restrictOnDelete(); 
-        });
+            // Relación con proveedor
+            $table->foreignId('proveedor_id')
+                ->constrained('proveedors')   // nombre REAL de la tabla
+                ->restrictOnDelete();
 
+            // Relación con producto
+            $table->foreignId('producto_id')
+                ->constrained('productos')    // nombre REAL de la tabla
+                ->restrictOnDelete();
+        });
     }
 
     /**
