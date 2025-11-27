@@ -1,10 +1,10 @@
 @extends('layout')
 
 @section('content')
-    <h2>Perfil del Usuario</h2>
-    <br><br>
+    <h2>Perfil de: {{ $usuario->nombre ?? 'Usuario' }}</h2>
+    <br>
 
-    <table border="1" cellpadding="10">
+    <table border="1" cellpadding="15">
         <thead>
             <tr>
                 <th>ID</th>

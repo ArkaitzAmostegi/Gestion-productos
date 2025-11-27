@@ -7,7 +7,7 @@
 </head>
 <body>
     <header>
-        <h1>Gestión de Almacen</h1>
+        <h1>Gestión de Almacén</h1>
         @if (session('success'))
             <p style="color: green;">{{ session('success') }}</p>
         @endif
@@ -21,7 +21,7 @@
             <ul>
                 <li><a href="{{ route('categories.index') }}">Gestionar Categorías</a></li>
                 <li><a href="{{ route('products.index') }}">Gestionar Productos</a></li>
-                <li><a href="{{ route('almacen.index') }}">Mostrar Almacen</a></li>
+                <li><a href="{{ route('almacen.index') }}">Mostrar Almacén</a></li>
             </ul>
         </nav>
         <hr>

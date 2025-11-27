@@ -6,9 +6,11 @@ use App\Http\Controllers\ProductosController;
 use App\Http\Controllers\AlmacenController;
 use App\Http\Controllers\PerfilController;
 
-//Crea la ruta para dirigir el flujo al layout
-Route::get('/', fn() => view('layout'));
-
+//Crea la ruta para dirigir el flujo al layout, pasando el usuario
+Route::get('/', function () {
+    $usuario = App\Models\Usuario::first();
+    return view('layout', compact('usuario'));
+});
 
 // CRUD de categorías
 Route::resource('categories', CategoriasController::class);
