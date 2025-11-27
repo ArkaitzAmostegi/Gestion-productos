@@ -12,18 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('producto_proveedor', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->foreignId('producto_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('proveedor_id')->constrained()->cascadeOnDelete();
 
-            // Relación con proveedor
-            $table->foreignId('proveedor_id')
-                ->constrained('proveedors')   // nombre REAL de la tabla
-                ->restrictOnDelete();
-
-            // Relación con producto
-            $table->foreignId('producto_id')
-                ->constrained('productos')    // nombre REAL de la tabla
-                ->restrictOnDelete();
+            $table->primary(['producto_id', 'proveedor_id']);
         });
     }
 
