@@ -13,8 +13,9 @@ class ProductosController extends Controller
     {
         $usuario = \App\Models\Usuario::first(); //Pasa el usuario a esta vista
         $products = Producto::with('categoria')->get();
+        $proveedores = Proveedor::with('productos')->get();
 
-        return view('products.index', compact('products', 'usuario'));
+        return view('products.index', compact('products', 'usuario', 'proveedores'));
     }
 
     // FORMULARIO DE CREACIÓN

@@ -12,6 +12,7 @@
                 <th>Nombre</th>
                 <th>Dirección</th>
                 <th>Teléfono</th>
+                <th>Productos que provee</th>
                 <th>Acciones</th>
             </tr>
         </thead>
@@ -22,6 +23,17 @@
                 <td>{{ $proveedor->nombre }}</td>
                 <td>{{ $proveedor->direccion }}</td>
                 <td>{{ $proveedor->telefono }}</td>
+                <td>
+                    @if ($proveedor->productos->isEmpty())
+                        <em>Sin productos</em>
+                    @else
+                        <ul>
+                            @foreach ($proveedor->productos as $producto)
+                                <li>{{ $producto->nombre }} (Stock: {{ $producto->stock }})</li>
+                            @endforeach
+                        </ul>
+                    @endif
+                </td>
                 <td>
                     <a href="{{ route('proveedors.edit', $proveedor) }}">Editar</a>
 
