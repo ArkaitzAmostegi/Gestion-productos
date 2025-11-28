@@ -46,8 +46,8 @@ class ProductosController extends Controller
     public function edit(Producto $product)
     {
         
+        $usuario = \App\Models\Usuario::first();
         $categories = Categoria::all();
-
         return view('products.edit', compact('product', 'categories'));
     }
 
