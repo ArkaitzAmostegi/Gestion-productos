@@ -19,51 +19,60 @@ class ProveedorController extends Controller
         return view('proveedores.index', compact('proveedors', 'usuario'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+   // FORMULARIO CREACIÓN
     public function create()
     {
-        //
+        $usuario = \App\Models\Usuario::first();
+        return view('proveedores.create', compact('usuario'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    // GUARDAR EN BD
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nombre' => 'required|string|max:255',
+            'direccion' => 'required|string|max:255',
+            'telefono' => 'required|string|max:50',
+        ]);
+
+        Proveedor::create($request->all());
+
+        return redirect()
+            ->route('proveedors.index')
+            ->with('success', 'Proveedor creado correctamente.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Proveedor $proveedor)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
+    //EDITAR proveedor
     public function edit(Proveedor $proveedor)
     {
-        //
+        $usuario = \App\Models\Usuario::first();
+        return view('proveedores.edit', compact('proveedor', 'usuario'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+
     public function update(Request $request, Proveedor $proveedor)
     {
-        //
+        $request->validate([
+            'nombre' => 'required|string|max:255',
+            'direccion' => 'required|string|max:255',
+            'telefono' => 'required|string|max:50',
+        ]);
+
+        $proveedor->update($request->all());
+
+        return redirect()
+            ->route('proveedors.index')
+            ->with('success', 'Proveedor actualizado correctamente.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    //ELIMINAR Proveedor
     public function destroy(Proveedor $proveedor)
     {
-        //
+        $proveedor->delete();
+
+        return redirect()
+            ->route('proveedors.index')
+            ->with('success', 'Proveedor eliminado correctamente.');
     }
+
 }
