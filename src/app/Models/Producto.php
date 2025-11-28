@@ -16,8 +16,16 @@ class Producto extends Model
         'idCategoria'
     ];
 
+    //Relación con categoria 1:N
     public function categoria()
     {
         return $this->belongsTo(Categoria::class, 'idCategoria');
     }
+
+    ///Relación con proveedores N:M
+    public function proveedores()
+    {
+        return $this->belongsToMany(Proveedor::class, 'producto_proveedor');
+    }
+
 }
