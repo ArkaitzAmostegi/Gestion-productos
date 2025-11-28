@@ -12,7 +12,11 @@ class ProveedorController extends Controller
      */
     public function index()
     {
-        //
+        $usuario = \App\Models\Usuario::first(); //Pasa el usuario a esta vista
+        
+        $proveedors = Proveedor::with('productos')->get();
+
+        return view('proveedores.index', compact('proveedors', 'usuario'));
     }
 
     /**

@@ -22,6 +22,7 @@
                 <li><a href="{{ route('categories.index') }}">Gestionar Categorías</a></li>
                 <li><a href="{{ route('products.index') }}">Gestionar Productos</a></li>
                 <li><a href="{{ route('almacen.index') }}">Mostrar Almacén</a></li>
+                <li><a href="{{ route('proveedors.index') }}">Mostrar Proveedores</a></li>
             </ul>
         </nav>
         <hr>
