@@ -12,8 +12,12 @@ class ProductosController extends Controller
     // LISTADO
     public function index()
     {
-        $usuario = \App\Models\Usuario::first(); //Pasa el usuario a esta vista
+        $usuario = \App\Models\Usuario::first(); // Usuario mostrado en la cabecera
+
+        // Carga productos con su categoría para evitar consultas N+1
         $products = Producto::with('categoria')->get();
+
+        // Obtiene proveedores junto a los productos que suministran
         $proveedores = Proveedor::with('productos')->get();
 
         return view('products.index', compact('products', 'usuario', 'proveedores'));
@@ -23,8 +27,8 @@ class ProductosController extends Controller
     public function create()
     {
         $usuario = \App\Models\Usuario::first();
-        $categorias = Categoria::all();
-        $proveedores = Proveedor::all();
+        $categorias = Categoria::all();   // Categorías disponibles para asignar
+        $proveedores = Proveedor::all();  // Proveedores existentes
 
         return view('products.create', compact('categorias', 'proveedores', 'usuario'));
     }
@@ -32,19 +36,21 @@ class ProductosController extends Controller
     // GUARDAR EN BD
     public function store(Request $request)
     {
+        // Validación de campos básicos y del select múltiple de proveedores
         $request->validate([
             'nombre' => 'required',
             'precio' => 'required|numeric',
             'stock'  => 'required|integer',
             'idCategoria' => 'required',
-            'proveedores' => 'array', // viene del select multiple
+            'proveedores' => 'array', // IDs de proveedores seleccionados
         ]);
 
+        // Solo se guardan los campos permitidos
         $producto = Producto::create($request->only([
             'nombre', 'precio', 'stock', 'idCategoria'
         ]));
 
-        // Guardar proveedores seleccionados
+        // Asigna los proveedores al producto (relación N:M)
         if ($request->proveedores) {
             $producto->proveedores()->sync($request->proveedores);
         }
@@ -57,11 +63,9 @@ class ProductosController extends Controller
     // FORMULARIO DE EDICIÓN
     public function edit(Producto $product)
     {
-        
         $usuario = \App\Models\Usuario::first();
-        $categorias = Categoria::all();
-        $proveedores = Proveedor::all();
-
+        $categorias = Categoria::all();   // Todas las categorías para seleccionar
+        $proveedores = Proveedor::all();  // Se muestran todos para marcar los asociados
 
         return view('products.edit', compact('product', 'categorias', 'usuario', 'proveedores'));
     }
@@ -69,6 +73,7 @@ class ProductosController extends Controller
     // ACTUALIZAR EN BD
     public function update(Request $request, Producto $product)
     {
+        // Valida cambios básicos antes de actualizar
         $request->validate([
             'nombre' => 'required',
             'precio' => 'required|numeric',
@@ -76,9 +81,10 @@ class ProductosController extends Controller
             'idCategoria' => 'required|exists:categorias,id'
         ]);
 
-        // Actualiza los campos del producto
+        // Actualiza solo los campos permitidos
         $product->update($request->only(['nombre', 'precio', 'stock', 'idCategoria']));
-        // Actualiza la relación N:M con proveedores
+
+        // Sincroniza proveedores seleccionados (si no vienen, limpia la relación)
         $product->proveedores()->sync($request->proveedores ?? []);
 
         return redirect()
@@ -89,6 +95,7 @@ class ProductosController extends Controller
     // BORRAR
     public function destroy(Producto $product)
     {
+        // Elimina el producto (la relación pivot se borra automáticamente)
         $product->delete();
 
         return redirect()

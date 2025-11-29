@@ -6,6 +6,7 @@ use App\Http\Controllers\ProductosController;
 use App\Http\Controllers\AlmacenController;
 use App\Http\Controllers\PerfilController;
 use App\Http\Controllers\ProveedorController;
+use App\Http\Controllers\UsuarioController;
 
 //Crea la ruta para dirigir el flujo al layout, pasando el usuario
 Route::get('/', function () {

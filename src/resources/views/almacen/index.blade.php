@@ -39,7 +39,7 @@
                     {{-- Borrar categoría SOLO si no tiene productos --}}
                     @if ($category->productos_count == 0)
                         <form action="{{ route('categories.destroy', $category) }}"
-                              method="POST" style="display:inline;">
+                                method="POST" style="display:inline;">
                             @csrf
                             @method('DELETE')
                             <button onclick="return confirm('¿Borrar categoría?')">Borrar</button>
@@ -92,7 +92,7 @@
                     <a href="{{ route('products.edit', $product) }}">Editar</a>
 
                     <form action="{{ route('products.destroy', $product) }}"
-                          method="POST" style="display:inline;">
+                            method="POST" style="display:inline;">
                         @csrf
                         @method('DELETE')
                         <button onclick="return confirm('¿Borrar producto?')">

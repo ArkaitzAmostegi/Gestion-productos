@@ -3,9 +3,10 @@
 @section('content')
 <h2>Editar Proveedor</h2>
 
+{{-- Formulario para actualizar un proveedor existente --}}
 <form action="{{ route('proveedors.update', $proveedor) }}" method="POST">
-    @csrf
-    @method('PUT')
+    @csrf           {{-- Token CSRF obligatorio --}}
+    @method('PUT')  {{-- Método PUT para actualizar --}}
 
     <label>Nombre:</label><br>
     <input type="text" name="nombre" value="{{ $proveedor->nombre }}" required>
@@ -23,5 +24,6 @@
 </form>
 
 <br>
+{{-- Enlace para volver al listado --}}
 <a href="{{ route('proveedors.index') }}">← Volver</a>
 @endsection

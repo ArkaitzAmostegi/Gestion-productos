@@ -1,23 +1,29 @@
 @extends('layout')
 
 @section('content')
+    {{-- Formulario para crear un nuevo producto --}}
     <h2>Crear Producto</h2>
 
     <form action="{{ route('products.store') }}" method="POST">
-        @csrf
+        @csrf {{-- Protección CSRF obligatoria en formularios POST --}}
 
+        {{-- Selección de categoría (relación 1:N) --}}
         <label for="idCategoria">Categoría:</label><br>
         <select name="idCategoria" id="idCategoria" required>
             <option value="">-- Selecciona una categoría --</option>
+
+            {{-- Lista de categorías cargadas desde el controlador --}}
             @foreach($categorias as $category)
                 <option value="{{ $category->id }}">{{ $category->nombre }}</option>
             @endforeach
         </select><br><br>
 
-        {{-- PROVEEDORES --}}
+        {{-- Selección de proveedor (relación N:M) --}}
         <label for="proveedores">Proveedores:</label><br>
         <select name="proveedores[]" id="proveedores">
             <option value="">-- Selecciona un Proveedor --</option>
+
+            {{-- Lista de proveedores existentes --}}
             @foreach ($proveedores as $proveedor)
                 <option value="{{ $proveedor->id }}">
                     {{ $proveedor->nombre }}
@@ -34,6 +40,7 @@
         <label for="stock">Stock:</label><br>
         <input type="number" name="stock" id="stock" required><br><br>
 
+        {{-- Botón de acción --}}
         <button type="submit">Guardar Producto</button>
     </form>
 

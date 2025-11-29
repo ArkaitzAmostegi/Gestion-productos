@@ -7,26 +7,28 @@ use App\Models\Proveedor;
 
 class ProveedorController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    // Muestra el listado de proveedores.
+    // Carga también los productos asociados para evitar consultas N+1.
     public function index()
     {
-        $usuario = \App\Models\Usuario::first(); //Pasa el usuario a esta vista
+        $usuario = \App\Models\Usuario::first(); // Usuario para mostrar en el layout
         
+        // Carga proveedores junto con los productos que suministran
         $proveedors = Proveedor::with('productos')->get();
 
         return view('proveedores.index', compact('proveedors', 'usuario'));
     }
 
-   // FORMULARIO CREACIÓN
+    // FORMULARIO CREACIÓN
     public function create()
     {
         $usuario = \App\Models\Usuario::first();
         return view('proveedores.create', compact('usuario'));
     }
 
-    // GUARDAR EN BD
+    
+    //Guarda un nuevo proveedor en la BD.
+    // Valida información básica antes de crear.
     public function store(Request $request)
     {
         $request->validate([
@@ -35,6 +37,7 @@ class ProveedorController extends Controller
             'telefono' => 'required|string|max:50',
         ]);
 
+        // Crea el proveedor con los campos permitidos
         Proveedor::create($request->all());
 
         return redirect()
@@ -42,7 +45,9 @@ class ProveedorController extends Controller
             ->with('success', 'Proveedor creado correctamente.');
     }
 
-    //EDITAR proveedor
+    
+    //Formulario de edición de proveedor.
+    //Laravel inyecta automáticamente el modelo correspondiente.
     public function edit(Proveedor $proveedor)
     {
         $usuario = \App\Models\Usuario::first();
@@ -50,7 +55,8 @@ class ProveedorController extends Controller
         return view('proveedores.edit', compact('proveedor', 'usuario'));
     }
 
-
+    // Actualiza un proveedor existente.
+    
     public function update(Request $request, Proveedor $proveedor)
     {
         $request->validate([
@@ -59,6 +65,7 @@ class ProveedorController extends Controller
             'telefono' => 'required|string|max:50',
         ]);
 
+        // Actualiza los datos del proveedor
         $proveedor->update($request->all());
 
         return redirect()
@@ -66,7 +73,11 @@ class ProveedorController extends Controller
             ->with('success', 'Proveedor actualizado correctamente.');
     }
 
-    //ELIMINAR Proveedor
+    /**
+     * Elimina un proveedor.
+     * Si tiene productos relacionados, MYSQL impedirá la eliminación
+     * (según relaciones N:M en pivot).
+     */
     public function destroy(Proveedor $proveedor)
     {
         $proveedor->delete();

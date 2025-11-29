@@ -8,60 +8,18 @@ use Illuminate\Http\Request;
 class PerfilController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Muestra el perfil del usuario.
+     * Solo hay un perfil asociado al usuario_id = 1 (configuración fija).
      */
     public function index()
     {
-        $usuario = \App\Models\Usuario::first(); //Pasa el usuario a esta vista
+        $usuario = \App\Models\Usuario::first(); // Usuario cargado para mostrar en la vista
+
+        // Obtiene el perfil asociado al usuario con id=1
+        // Si en el futuro quieres perfiles dinámicos, esto deberá adaptarse
         $perfil = Perfil::where('usuario_id', 1)->first();
+
         return view('perfil.index', compact('perfil', 'usuario'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Perfil $perfil)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Perfil $perfil)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Perfil $perfil)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Perfil $perfil)
-    {
-        //
-    }
 }

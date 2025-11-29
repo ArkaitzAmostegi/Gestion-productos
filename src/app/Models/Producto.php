@@ -9,6 +9,7 @@ class Producto extends Model
 {
     use HasFactory;
 
+    // Campos permitidos para asignación masiva desde formularios
     protected $fillable = [
         'nombre',
         'precio',
@@ -16,16 +17,17 @@ class Producto extends Model
         'idCategoria'
     ];
 
-    //Relación con categoria 1:N
+    // Relación N:1 → cada producto pertenece a una categoría
+    // Se indica explícitamente la FK porque no usa el nombre por defecto
     public function categoria()
     {
         return $this->belongsTo(Categoria::class, 'idCategoria');
     }
 
-    ///Relación con proveedores N:M
+    // Relación N:M → un producto puede tener varios proveedores
+    // Usa la tabla pivot producto_proveedor
     public function proveedores()
     {
         return $this->belongsToMany(Proveedor::class, 'producto_proveedor');
     }
-
 }

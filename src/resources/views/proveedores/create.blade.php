@@ -3,8 +3,9 @@
 @section('content')
 <h2>Crear Proveedor</h2>
 
+{{-- Formulario para crear un nuevo proveedor --}}
 <form action="{{ route('proveedors.store') }}" method="POST">
-    @csrf
+    @csrf   {{-- Protección contra CSRF --}}
 
     <label>Nombre:</label><br>
     <input type="text" name="nombre" required>
@@ -22,5 +23,6 @@
 </form>
 
 <br>
+{{-- Enlace para volver al listado de proveedores --}}
 <a href="{{ route('proveedors.index') }}">← Volver</a>
 @endsection
