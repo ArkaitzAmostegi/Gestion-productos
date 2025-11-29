@@ -22,10 +22,10 @@
         <nav>
             <h3><a href="{{ route('perfil.index') }}">{{ $usuario->nombre ?? 'Usuario' }}</a></h3>
             <ul>
-                <li><a href="{{ route('categories.index') }}">Gestionar Categorías</a></li>
-                <li><a href="{{ route('products.index') }}">Gestionar Productos</a></li>
-                <li><a href="{{ route('almacen.index') }}">Mostrar Almacén</a></li>
-                <li><a href="{{ route('proveedors.index') }}">Mostrar Proveedores</a></li>
+                <li><a href="{{ route('categories.index') }}">Gestión Categorías</a></li>
+                <li><a href="{{ route('products.index') }}">Gestión Productos</a></li>
+                <li><a href="{{ route('almacen.index') }}">Gestión Almacén</a></li>
+                <li><a href="{{ route('proveedors.index') }}">Gestión Proveedores</a></li>
             </ul>
         </nav>
         <hr>

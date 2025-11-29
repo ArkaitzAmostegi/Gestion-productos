@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('content')
-    <h2>Listado de proveedores</h2>
+    <h2>Gestión de Proveedores</h2>
     <a href="{{ route('proveedors.create') }}">Crear Nuevo proveedor</a>
     <br><br>
 
@@ -27,7 +27,7 @@
                     @if ($proveedor->productos->isEmpty())
                         <em>Sin productos</em>
                     @else
-                        <ul>
+                        <ul class="sin-puntos">
                             @foreach ($proveedor->productos as $producto)
                                 <li>{{ $producto->nombre }} (Stock: {{ $producto->stock }})</li>
                             @endforeach

@@ -7,24 +7,44 @@
         @csrf
         @method('PUT')
 
+        {{-- CATEGORÍA --}}
         <label for="idCategoria">Categoría:</label><br>
         <select name="idCategoria" id="idCategoria" required>
-            <option value="">-- Selecciona una categoría --</option>
-            @foreach($categories as $category)
-                <option value="{{ $category->id }}">{{ $category->nombre }}</option>
+            @foreach($categorias as $category)
+                <option value="{{ $category->id }}"
+                    @selected($product->idCategoria == $category->id)>
+                    {{ $category->nombre }}
+                </option>
             @endforeach
         </select><br><br>
 
+        {{-- NOMBRE --}}
         <label for="nombre">Nombre del Producto:</label><br>
-        <input type="text" name="nombre" value="{{ $product->nombre }}" required><br><br>
+        <input type="text" name="nombre" id="nombre"
+                value="{{ old('nombre', $product->nombre) }}" required><br><br>
 
+        {{-- PROVEEDORES --}}
+        <label for="proveedores">Proveedores:</label><br>
+        <select name="proveedores[]" id="proveedores" multiple size="5">
+            @foreach ($proveedores as $prov)
+                <option value="{{ $prov->id }}"
+                    @selected($product->proveedores->contains($prov->id))>
+                    {{ $prov->nombre }}
+                </option>
+            @endforeach
+        </select><br><br>
+
+        {{-- PRECIO --}}
         <label for="precio">Precio:</label><br>
-        <input type="number" step="0.01" name="precio" value="{{ $product->precio }}" required><br><br>
+        <input type="number" step="0.01" name="precio" id="precio"
+                value="{{ old('precio', $product->precio) }}" required><br><br>
 
+        {{-- STOCK --}}
         <label for="stock">Stock:</label><br>
-        <input type="number" name="stock" value="{{ $product->stock }}" required><br><br>
+        <input type="number" name="stock" id="stock"
+                value="{{ old('stock', $product->stock) }}" required><br><br>
 
-        <button type="submit">Actualizar Producto</button>
+        <button type="submit">Guardar cambios</button>
     </form>
 
     <br>

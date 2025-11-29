@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Producto;
+use App\Models\Proveedor;
 use App\Models\Categoria;
 use Illuminate\Http\Request;
 
@@ -21,9 +22,11 @@ class ProductosController extends Controller
     // FORMULARIO DE CREACIÓN
     public function create()
     {
-        $categories = Categoria::all();
+        $usuario = \App\Models\Usuario::first();
+        $categorias = Categoria::all();
+        $proveedores = Proveedor::all();
 
-        return view('products.create', compact('categories'));
+        return view('products.create', compact('categorias', 'proveedores', 'usuario'));
     }
 
     // GUARDAR EN BD
@@ -32,11 +35,19 @@ class ProductosController extends Controller
         $request->validate([
             'nombre' => 'required',
             'precio' => 'required|numeric',
-            'stock' => 'required|integer|min:0',
-            'idCategoria' => 'required|exists:categorias,id'
+            'stock'  => 'required|integer',
+            'idCategoria' => 'required',
+            'proveedores' => 'array', // viene del select multiple
         ]);
 
-        Producto::create($request->all());
+        $producto = Producto::create($request->only([
+            'nombre', 'precio', 'stock', 'idCategoria'
+        ]));
+
+        // Guardar proveedores seleccionados
+        if ($request->proveedores) {
+            $producto->proveedores()->sync($request->proveedores);
+        }
 
         return redirect()
             ->route('products.index')
@@ -48,8 +59,11 @@ class ProductosController extends Controller
     {
         
         $usuario = \App\Models\Usuario::first();
-        $categories = Categoria::all();
-        return view('products.edit', compact('product', 'categories'));
+        $categorias = Categoria::all();
+        $proveedores = Proveedor::all();
+
+
+        return view('products.edit', compact('product', 'categorias', 'usuario', 'proveedores'));
     }
 
     // ACTUALIZAR EN BD
@@ -62,7 +76,10 @@ class ProductosController extends Controller
             'idCategoria' => 'required|exists:categorias,id'
         ]);
 
-        $product->update($request->all());
+        // Actualiza los campos del producto
+        $product->update($request->only(['nombre', 'precio', 'stock', 'idCategoria']));
+        // Actualiza la relación N:M con proveedores
+        $product->proveedores()->sync($request->proveedores ?? []);
 
         return redirect()
             ->route('products.index')

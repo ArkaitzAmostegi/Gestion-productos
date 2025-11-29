@@ -9,11 +9,21 @@
         <label for="idCategoria">Categoría:</label><br>
         <select name="idCategoria" id="idCategoria" required>
             <option value="">-- Selecciona una categoría --</option>
-            @foreach($categories as $category)
+            @foreach($categorias as $category)
                 <option value="{{ $category->id }}">{{ $category->nombre }}</option>
             @endforeach
         </select><br><br>
 
+        {{-- PROVEEDORES --}}
+        <label for="proveedores">Proveedores:</label><br>
+        <select name="proveedores[]" id="proveedores">
+            <option value="">-- Selecciona un Proveedor --</option>
+            @foreach ($proveedores as $proveedor)
+                <option value="{{ $proveedor->id }}">
+                    {{ $proveedor->nombre }}
+                </option>
+            @endforeach
+        </select><br><br>
 
         <label for="nombre">Nombre del Producto:</label><br>
         <input type="text" name="nombre" id="nombre" required><br><br>

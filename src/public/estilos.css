@@ -113,3 +113,9 @@ footer {
     text-align: center;
     color: #777;
 }
+
+.sin-puntos{
+    list-style: none;
+    padding-left: 0;
+    margin-left: 0;
+}

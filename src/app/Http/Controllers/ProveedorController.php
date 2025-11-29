@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Proveedor;
 use Illuminate\Http\Request;
+use App\Models\Proveedor;
 
 class ProveedorController extends Controller
 {
@@ -46,6 +46,7 @@ class ProveedorController extends Controller
     public function edit(Proveedor $proveedor)
     {
         $usuario = \App\Models\Usuario::first();
+        
         return view('proveedores.edit', compact('proveedor', 'usuario'));
     }
 

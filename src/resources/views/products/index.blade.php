@@ -13,6 +13,7 @@
                 <th>Nombre</th>
                 <th>Precio</th>
                 <th>Stock</th>
+                <th>Proveedor</th>
                 <th>Acciones</th>
             </tr>
         </thead>
@@ -25,8 +26,11 @@
                 <td>{{ $product->precio }}</td>
                 <td>{{ $product->stock }}</td>
                 <td>
-                    <a href="{{ route('products.edit', $product) }}">Editar</a>
-
+                    @foreach ($product->proveedores as $prov)
+                        {{ $prov->nombre }}<br>
+                    @endforeach
+                </td>
+                <td><a href="{{ route('products.edit', $product) }}">Editar</a>
                     <form action="{{ route('products.destroy', $product) }}" method="POST" style="display:inline;">
                         @csrf
                         @method('DELETE')
