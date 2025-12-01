@@ -36,29 +36,29 @@ class ProductosController extends Controller
     // GUARDAR EN BD
     public function store(Request $request)
     {
-        // Validación de campos básicos y del select múltiple de proveedores
         $request->validate([
             'nombre' => 'required',
             'precio' => 'required|numeric',
             'stock'  => 'required|integer',
             'idCategoria' => 'required',
-            'proveedores' => 'array', // IDs de proveedores seleccionados
+            
+            // VALIDACIÓN OBLIGATORIA
+            'proveedores' => 'required|array|min:1',
+            'proveedores.*' => 'exists:proveedors,id',
         ]);
 
-        // Solo se guardan los campos permitidos
         $producto = Producto::create($request->only([
             'nombre', 'precio', 'stock', 'idCategoria'
         ]));
 
-        // Asigna los proveedores al producto (relación N:M)
-        if ($request->proveedores) {
-            $producto->proveedores()->sync($request->proveedores);
-        }
+        // Asigna proveedores
+        $producto->proveedores()->sync($request->proveedores);
 
         return redirect()
             ->route('products.index')
             ->with('success', 'Producto creado correctamente.');
     }
+
 
     // FORMULARIO DE EDICIÓN
     public function edit(Producto $product)
@@ -73,24 +73,27 @@ class ProductosController extends Controller
     // ACTUALIZAR EN BD
     public function update(Request $request, Producto $product)
     {
-        // Valida cambios básicos antes de actualizar
         $request->validate([
             'nombre' => 'required',
             'precio' => 'required|numeric',
             'stock' => 'required|integer|min:0',
-            'idCategoria' => 'required|exists:categorias,id'
+            'idCategoria' => 'required|exists:categorias,id',
+
+            // Obligatorio seleccionar algún proveedor
+            'proveedores' => 'required|array|min:1',
+            'proveedores.*' => 'exists:proveedors,id',
         ]);
 
-        // Actualiza solo los campos permitidos
         $product->update($request->only(['nombre', 'precio', 'stock', 'idCategoria']));
 
-        // Sincroniza proveedores seleccionados (si no vienen, limpia la relación)
-        $product->proveedores()->sync($request->proveedores ?? []);
+        // sincroniza proveedores
+        $product->proveedores()->sync($request->proveedores);
 
         return redirect()
             ->route('products.index')
             ->with('success', 'Producto actualizado.');
     }
+
 
     // BORRAR
     public function destroy(Producto $product)

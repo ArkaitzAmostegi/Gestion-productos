@@ -7,10 +7,10 @@ use Illuminate\Http\Request;
 
 class PerfilController extends Controller
 {
-    /**
-     * Muestra el perfil del usuario.
-     * Solo hay un perfil asociado al usuario_id = 1 (configuración fija).
-     */
+    
+     // Muestra el perfil del usuario.
+     // Solo hay un perfil asociado al usuario_id = 1 (configuración fija).
+     
     public function index()
     {
         $usuario = \App\Models\Usuario::first(); // Usuario cargado para mostrar en la vista
