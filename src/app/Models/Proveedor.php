@@ -18,8 +18,9 @@ class Proveedor extends Model
 
     // Relación N:M → un proveedor puede suministrar muchos productos
     // Usa la tabla pivot producto_proveedor
-    public function productos()
+    public function productos(): BelongsToMany
     {
+        // Laravel buscará automáticamente la tabla pivote 'producto_proveedor'.
         return $this->belongsToMany(Producto::class, 'producto_proveedor');
     }
 }

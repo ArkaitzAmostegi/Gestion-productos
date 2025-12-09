@@ -20,8 +20,13 @@ class Perfil extends Model
         'usuario_id'
     ];
 
-    public function usuario()
+    /**
+     * Get the user that owns the profile.
+     * Define la relación inversa de uno-a-uno (1:1): Un perfil pertenece a un usuario.
+     */
+    public function usuario(): BelongsTo
     {
+        // Laravel asume 'user_id' como clave foránea.
         return $this->belongsTo(Usuario::class);
     }
 }

@@ -19,8 +19,10 @@ class Producto extends Model
 
     // Relación N:1 → cada producto pertenece a una categoría
     // Se indica explícitamente la FK porque no usa el nombre por defecto
-    public function categoria()
+    public function categoria(): BelongsTo
     {
+        // Laravel asume automáticamente que la clave foránea es 'category_id'
+        // y el nombre de la clave primaria es 'id'.
         return $this->belongsTo(Categoria::class, 'idCategoria');
     }
 
@@ -28,6 +30,7 @@ class Producto extends Model
     // Usa la tabla pivot producto_proveedor
     public function proveedores()
     {
+        // Laravel buscará automáticamente la tabla pivote 'producto'
         return $this->belongsToMany(Proveedor::class, 'producto_proveedor');
     }
 }

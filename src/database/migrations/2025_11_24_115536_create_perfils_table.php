@@ -16,10 +16,9 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('telefono')->nullable();
 
+            // --- CLAVE FORÁNEA (Foreign Key) ÚNICA para 1:1 ---
             // Relación 1:1 con usuarios
-            $table->foreignId('usuario_id')
-                  ->constrained('usuarios')
-                  ->cascadeOnDelete();
+            $table->foreignId('usuario_id')->constrained('usuarios')->cascadeOnDelete();
 
             $table->timestamps();
         });

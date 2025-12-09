@@ -18,9 +18,7 @@ return new class extends Migration
             $table->integer('stock')->default(0);
             
             // Relación con categorías
-            $table->foreignId('idCategoria')
-                ->constrained('categorias')
-                ->restrictOnDelete(); 
+            $table->foreignId('idCategoria')->constrained('categorias')->restrictOnDelete(); 
 
             $table->timestamps();
         });
