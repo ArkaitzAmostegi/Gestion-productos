@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class PerfilController extends Controller
 {
     
-     // Muestra el perfil del usuario.
+     // Muestra el perfil del usuario
      // Solo hay un perfil asociado al usuario_id = 1 (configuración fija).
      
     public function index()
